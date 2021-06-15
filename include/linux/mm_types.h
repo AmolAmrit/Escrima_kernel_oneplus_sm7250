@@ -516,6 +516,9 @@ struct mm_struct {
 		/* HMM needs to track a few things per mm */
 		struct hmm *hmm;
 #endif
+		unsigned int zygoteheap_in_MB;
+		int va_feature;
+		unsigned long va_feature_rnd;
 	} __randomize_layout;
 
 	/*
