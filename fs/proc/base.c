@@ -3349,6 +3349,8 @@ static int proc_pid_patch_state(struct seq_file *m, struct pid_namespace *ns,
 }
 #endif /* CONFIG_LIVEPATCH */
 
+unsigned long dbg_pm[8] = { 0 };
+
 /*
  * Thread groups
  */

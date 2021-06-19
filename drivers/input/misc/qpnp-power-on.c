@@ -198,12 +198,20 @@ struct qpnp_pon {
 	struct pon_regulator	*pon_reg_cfg;
 	struct list_head	list;
 	struct delayed_work	bark_work;
+	struct delayed_work     press_work;
+#ifdef CONFIG_KEY_FLUSH
+	struct delayed_work     press_work_flush;
+#endif
+	struct work_struct  up_work;
+	atomic_t	   press_count;
 	struct dentry		*debugfs;
+	struct device_node      *pbs_dev_node;
 	u16			base;
 	u8			subtype;
 	u8			pon_ver;
 	u8			warm_reset_reason1;
 	u8			warm_reset_reason2;
+	u8                      twm_state;
 	int			num_pon_config;
 	int			num_pon_reg;
 	int			pon_trigger_reason;
@@ -225,6 +233,8 @@ struct qpnp_pon {
 	bool			kpdpwr_dbc_enable;
 	bool			resin_pon_reset;
 	ktime_t			kpdpwr_last_release_time;
+	struct notifier_block   pon_nb;
+	bool			legacy_hard_reset_offset;
 };
 
 static int pon_ship_mode_en;
