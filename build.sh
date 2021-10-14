@@ -72,7 +72,7 @@ DEF_REG=0
 
 # Build dtbo.img (select this only if your source has support to building dtbo.img)
 # 1 is YES | 0 is NO(default)
-BUILD_DTBO=0
+BUILD_DTBO=1
 
 # Silence the compilation
 # 1 is YES(default) | 0 is NO
@@ -191,7 +191,7 @@ build_kernel() {
 			then
 				msg "|| Building DTBO ||"
 				python2 "/home/amolamrit/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
-				create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/vendor/qcom/avicii-overlay-dvt.dtbo"
+				create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/vendor/qcom/avicii-overlay.dtbo"
 			fi
 				gen_zip
 
@@ -203,7 +203,8 @@ build_kernel() {
 
 gen_zip() {
 	msg "|| Zipping into a flashable zip ||"
-	mv "$KERNEL_DIR"/out/arch/arm64/boot/Image AnyKernel3/Image
+	mv "$KERNEL_DIR"/out/arch/arm64/boot/Image AnyKernel3
+        mv "$KERNEL_DIR"/out/arch/arm64/boot/*.dtbo AnyKernel3
 
 	cd AnyKernel3 || exit
 	zip -r9 $ZIPNAME-$DEVICE-$DATE.zip * -x .git README.md
