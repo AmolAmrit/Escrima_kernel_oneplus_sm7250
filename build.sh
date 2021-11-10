@@ -48,7 +48,7 @@ default='\033[0m'
 KERNEL_DIR=$PWD
 
 # Kernel Version
-VERSION="X1-Chidori"
+VERSION="X2-Chidori"
 
 # The name of the device for which the kernel is built
 #MODEL="OnePlus Nord"
