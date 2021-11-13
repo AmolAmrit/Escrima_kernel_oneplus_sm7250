@@ -149,6 +149,15 @@ build_kernel() {
 
 	make O=out $DEFCONFIG
 
+        if [ $DEF_REG = 1 ]
+
+	then
+		cp .config arch/arm64/configs/$DEFCONFIG
+		git add arch/arm64/configs/$DEFCONFIG
+		git commit -m "$DEFCONFIG: Regenerate
+						This is an auto-generated commit"
+	fi
+
         BUILD_START=$(date +"%s")
 
 	if [ $COMPILER = "clang" ]
